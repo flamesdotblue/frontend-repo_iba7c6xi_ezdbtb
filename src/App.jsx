@@ -1,28 +1,30 @@
-import { useState } from 'react'
+import React, { useState } from 'react';
+import Header from './components/Header';
+import FileShareHome from './components/FileShareHome';
+import Rooms from './components/Rooms';
+import AdminPanel from './components/AdminPanel';
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const [tab, setTab] = useState('home');
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
+    <div className="min-h-screen bg-gradient-to-b from-neutral-50 to-white dark:from-neutral-950 dark:to-neutral-900 text-neutral-900 dark:text-neutral-50">
+      <Header activeTab={tab} onChange={setTab} />
 
-export default App
+      {tab === 'home' && <FileShareHome />}
+      {tab === 'rooms' && <Rooms />}
+      {tab === 'admin' && <AdminPanel />}
+
+      <footer className="border-t border-neutral-200 dark:border-neutral-800 py-8 mt-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-neutral-500 flex flex-col sm:flex-row items-center justify-between gap-3">
+          <p>© {new Date().getFullYear()} SwiftShare — Secure file sharing with private rooms.</p>
+          <div className="flex items-center gap-4">
+            <a href="#" className="hover:text-neutral-900 dark:hover:text-white">Privacy</a>
+            <a href="#" className="hover:text-neutral-900 dark:hover:text-white">Terms</a>
+            <a href="#" className="hover:text-neutral-900 dark:hover:text-white">Status</a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  );
+}
